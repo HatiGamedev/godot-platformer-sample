@@ -83,5 +83,11 @@ func _input(event):
 	if event.is_action("attack") && event.is_pressed() && !event.is_echo() && !(AttackCD.get_time_left() > 0.0):
 		emit_signal("enter_state", PlayerState.Attack)
 		attack()
+	elif event.is_action("ui_right") || event.is_action("ui_left"):
+		if event.is_pressed() && !event.is_echo():
+			emit_signal("enter_state", PlayerState.Walk)
+		elif !event.is_pressed():
+			emit_signal("enter_state", PlayerState.Idle)
+		pass
 	pass
 	
