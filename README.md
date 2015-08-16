@@ -8,12 +8,14 @@ This sample spotlights some advanced features which are regularly used in 2D pla
 
 ## Project structure (not really part of the tutorial - just an information for readers)
 
-* /             # repository root dir, contains VCS dir and configuration files, Builds (ignored by VCS ofc) and anything game related (raw assets, docs, licenses etc.)
-    * Builds/   # where your builds for various platforms should go
-    * game/     # contains all the real game related stuff
-        * Assembly/     # Assembly I call something which has to be tinkered together, mainly prototypes / prefabs; resembles main project structure
-        * {{AssetType}}/     # Common assets used in all scenes/assemblies
+    # repository root dir, contains VCS dir and configuration files, Builds (ignored by VCS ofc) and anything game related (raw assets, docs, licenses etc.)
+    /
+        Builds/   # where your builds for various platforms should go
+        game/     # contains all the real game related stuff
 
+        	# Assembly I call something which has to be tinkered together, mainly prototypes / prefabs; resembles main project structure
+            Assembly/
 
+            * {{AssetType}}/     # Common assets used in all scenes/assemblies
 
 

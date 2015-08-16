@@ -10,7 +10,7 @@ func _ready():
 
 
 func _on_Player_enter_state( StateName ):
-	if StateName == player.PlayerStates.ATTACK_STATE:
-		print("test successful")
+	if StateName == player.PlayerState.Attack:
+		self.play("attack")
 		pass
 	pass # replace with function body

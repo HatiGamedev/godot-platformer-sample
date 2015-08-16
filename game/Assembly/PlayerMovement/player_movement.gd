@@ -11,11 +11,12 @@ var AttackCD = Timer.new()
 
 var attackInstance = load("res://Assembly/PlayerMovement/attack_sprite.scn")
 
-const PlayerStates = {
-	IDLE_STATE=0,
-	WALK_STATE=1,
-	RUN_STATE=2,
-	ATTACK_STATE=3
+# Basically makes it static, so player does not have to be instanced
+const PlayerState = {
+	Idle=0,
+	Walk=1,
+	Run=2,
+	Attack=3
 }
 
 signal enter_state(StateName)
@@ -80,7 +81,7 @@ func attack():
 
 func _input(event):
 	if event.is_action("attack") && event.is_pressed() && !event.is_echo() && !(AttackCD.get_time_left() > 0.0):
-		emit_signal("enter_state", PlayerStates.ATTACK_STATE)
+		emit_signal("enter_state", PlayerState.Attack)
 		attack()
 	pass
 	
