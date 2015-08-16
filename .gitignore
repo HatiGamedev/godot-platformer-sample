@@ -1,0 +1,18 @@
+##########
+# Builds #
+##########
+Builds/
+
+###############
+# Cache files #
+###############
+.fscache
+
+
+############
+# Symlinks #
+############
+
+# Symlink to godot-issues compilation
+issues
+
