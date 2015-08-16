@@ -21,9 +21,19 @@ func _on_Player_enter_state( StateName ):
 	elif StateName == player.PlayerState.Idle:
 		self.play("idle")
 		pass
+	elif StateName == player.PlayerState.JumpStart:
+		self.play("jump_start")
+		pass
+	elif StateName == player.PlayerState.JumpEnd:
+		self.play("jump_end")
+		pass
+	elif StateName == player.PlayerState.Landing:
+		self.play("landing")
+		pass
 	pass # replace with function body
 
 
 
 func _on_AnimationPlayer_finished():
+	print(get_current_animation())
 	pass # replace with function body

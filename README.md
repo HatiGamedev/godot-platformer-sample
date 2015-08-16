@@ -19,3 +19,9 @@ This sample spotlights some advanced features which are regularly used in 2D pla
             * {{AssetType}}/     # Common assets used in all scenes/assemblies
 
 
+
+
+
+# Credits
+Textures/Artwork by Buch: http://opengameart.org/content/a-platformer-in-the-forest
+
