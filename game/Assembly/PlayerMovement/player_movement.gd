@@ -1,8 +1,6 @@
 
 extends KinematicBody2D
 
-# member variables here, example:
-# var a=2
 const GRAVITY=9.81
 var mv=Vector2()
 export var MovementSpeed=1.0
@@ -12,6 +10,16 @@ var ColN = Vector2()
 var AttackCD = Timer.new()
 
 var attackInstance = load("res://Assembly/PlayerMovement/attack_sprite.scn")
+
+const PlayerStates = {
+	IDLE_STATE=0,
+	WALK_STATE=1,
+	RUN_STATE=2,
+	ATTACK_STATE=3
+}
+
+signal enter_state(StateName)
+
 
 # This does not work if using is_colliding() so close (_handleJump and following this line) -> unable to jump
 func _handleJump():
@@ -72,6 +80,7 @@ func attack():
 
 func _input(event):
 	if event.is_action("attack") && event.is_pressed() && !event.is_echo() && !(AttackCD.get_time_left() > 0.0):
+		emit_signal("enter_state", PlayerStates.ATTACK_STATE)
 		attack()
 	pass
 	

@@ -11,37 +11,10 @@ signal was_hit
 var ImmunityTimer
 var DamageImmuneTimer = Timer.new()
 
-var Nav
-var current_path
-var hasPath=false
-
-func _draw():
-	if !hasPath:
-		return
-	if current_path.size() > 0:
-		for i in range(1):
-			draw_circle(current_path[i], 5, Color(0, 1, 0))
-		pass
-	else:
-		print("nuting to draw")
-		pass
-
 func _process(delta):
-	current_path = Nav.get_simple_path(get_global_pos(), get_node("../../Player").get_global_pos())
-	if current_path.size() > 0:
-		hasPath = true
-		update()
-		set_axis_velocity(current_path.get(0))
-		pass
-	else:
-		hasPath = false
-		print("unable to path")
-		pass
 	pass
 
 func _ready():
-	Nav = get_node("/root/Root/Navigation2D")
-	
 	set_process(true)
 	ImmunityTimer = get_node("ImmunityTimer")
 	
