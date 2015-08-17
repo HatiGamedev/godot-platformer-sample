@@ -26,7 +26,7 @@ signal enter_state(StateName)
 var CurrentState = PlayerState.Idle
 
 var isGrounded
-var groundRay
+var groundRay # Currently not used as not working properly ... with masks and stuff
 
 # This does not work if using is_colliding() so close (_handleJump and following this line) -> unable to jump
 func _handleJump():
