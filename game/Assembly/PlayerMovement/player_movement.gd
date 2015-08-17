@@ -18,13 +18,12 @@ const PlayerState = {
 	Run=2,
 	Attack=3,
 	JumpStart=4,
-	JumpEnd=5,
+	Falling=5,
 	Landing=6,
 }
 
 signal enter_state(StateName)
 var CurrentState = PlayerState.Idle
-
 
 # This does not work if using is_colliding() so close (_handleJump and following this line) -> unable to jump
 func _handleJump():
@@ -38,6 +37,7 @@ func _handleJump():
 func _fixed_process(delta):
 	# Storing the first request works fine though, but asking twice per frame - simply blocks jump
 	isColliding = is_colliding()
+
 	if(isColliding):
 		ColN = get_collision_normal()
 	
@@ -53,13 +53,14 @@ func _fixed_process(delta):
 	_handleJump()
 	
 	if CurrentState == PlayerState.JumpStart:
+		print(mv.y)
 		if mv.y > 0.0:
-			emit_signal("enter_state", PlayerState.JumpEnd)
+			emit_signal("enter_state", PlayerState.Falling)
 		pass
-		
+	
 	var plannedMotion = move(mv)
 	if(isColliding):
-		if CurrentState == PlayerState.JumpEnd:
+		if CurrentState == PlayerState.Falling:
 			emit_signal("enter_state", PlayerState.Landing)
 			pass
 		plannedMotion = ColN.slide(plannedMotion)
@@ -76,6 +77,7 @@ func _ready():
 	AttackCD.set_autostart(false)
 	AttackCD.set_wait_time(0.5)
 	self.add_child(AttackCD)
+	
 	
 	pass
 
@@ -104,8 +106,6 @@ func _input(event):
 		pass
 	pass
 	
-
-
-func _on_Player_2_enter_state( StateName ):
+func _on_Player_enter_state( StateName ):
 	CurrentState = StateName
 	pass # replace with function body
