@@ -16,3 +16,12 @@ Builds/
 # Symlink to godot-issues compilation
 issues
 
+
+##############
+# Raw Assets #
+##############
+
+# LMMS
+*.mmpz.bak
+
+

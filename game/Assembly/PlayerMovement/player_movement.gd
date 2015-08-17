@@ -34,7 +34,7 @@ var groundRay
 
 # This does not work if using is_colliding() so close (_handleJump and following this line) -> unable to jump
 func _handleJump():
-	if(Input.is_action_pressed("ui_up")):
+	if(Input.is_action_pressed("ui_up") && CurrentState != PlayerState.Falling):
 		if(isColliding):
 			if(ColN.y < 0.3): # proper ground check
 				mv.y = -JumpSpeed
@@ -80,9 +80,10 @@ func _fixed_process(delta):
 		if CurrentState == PlayerState.Falling:
 			emit_signal("enter_state", PlayerState.Landing)
 			pass
-		plannedMotion = ColN.slide(plannedMotion)
-		mv = ColN.slide(mv)
-		move(plannedMotion)
+		else:
+			plannedMotion = ColN.slide(plannedMotion)
+			mv = ColN.slide(mv)
+			move(plannedMotion)
 	pass
 
 func _ready():
