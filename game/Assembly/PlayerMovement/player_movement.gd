@@ -13,17 +13,20 @@ var attackInstance = load("res://Assembly/PlayerMovement/attack_sprite.scn")
 
 # Basically makes it static, so player does not have to be instanced
 const PlayerState = {
-	Idle=0,
-	Walk=1,
-	Run=2,
-	Attack=3,
-	JumpStart=4,
-	Falling=5,
-	Landing=6,
+	Idle="idle",
+	Walk="walk",
+	Run="run",
+	Attack="attack",
+	JumpStart="jump_start",
+	Falling="jump_end",
+	Landing="landing",
 }
 
 signal enter_state(StateName)
 var CurrentState = PlayerState.Idle
+
+var isGrounded
+var groundRay
 
 # This does not work if using is_colliding() so close (_handleJump and following this line) -> unable to jump
 func _handleJump():
@@ -34,9 +37,21 @@ func _handleJump():
 				isColliding = false
 				emit_signal("enter_state", PlayerState.JumpStart)
 
+var prevIsColliding # ugly hack
+
+var PreviousState
+
 func _fixed_process(delta):
+	prevIsColliding = isColliding
 	# Storing the first request works fine though, but asking twice per frame - simply blocks jump
 	isColliding = is_colliding()
+	isGrounded = groundRay.is_colliding()
+	#print(isGrounded)
+	
+	if PreviousState != CurrentState:
+		print(CurrentState)
+		PreviousState = CurrentState
+		pass
 
 	if(isColliding):
 		ColN = get_collision_normal()
@@ -52,8 +67,7 @@ func _fixed_process(delta):
 
 	_handleJump()
 	
-	if CurrentState == PlayerState.JumpStart:
-		print(mv.y)
+	if CurrentState == PlayerState.JumpStart || ( isColliding == false && prevIsColliding == isColliding ):
 		if mv.y > 0.0:
 			emit_signal("enter_state", PlayerState.Falling)
 		pass
@@ -78,6 +92,7 @@ func _ready():
 	AttackCD.set_wait_time(0.5)
 	self.add_child(AttackCD)
 	
+	groundRay = get_node("GroundRay")
 	
 	pass
 
@@ -108,4 +123,9 @@ func _input(event):
 	
 func _on_Player_enter_state( StateName ):
 	CurrentState = StateName
+	pass # replace with function body
+
+
+func _on_AnimationPlayer_animation_changed( old_name, new_name ):
+	CurrentState = new_name
 	pass # replace with function body
