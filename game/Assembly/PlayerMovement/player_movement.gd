@@ -26,7 +26,6 @@ signal enter_state(StateName)
 var CurrentState = PlayerState.Idle
 
 
-
 # Currently not used as not working properly ... with masks and stuff
 var isGrounded
 var groundRay

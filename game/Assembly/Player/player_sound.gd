@@ -7,7 +7,7 @@ func _ready():
 	pass
 
 
-
+# Sound-effects are handled here on state switches
 
 func _on_Player_enter_state( StateName ):
 	prints("audio",StateName)
