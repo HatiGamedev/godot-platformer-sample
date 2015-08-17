@@ -25,8 +25,12 @@ const PlayerState = {
 signal enter_state(StateName)
 var CurrentState = PlayerState.Idle
 
+
+
+# Currently not used as not working properly ... with masks and stuff
 var isGrounded
-var groundRay # Currently not used as not working properly ... with masks and stuff
+var groundRay
+
 
 # This does not work if using is_colliding() so close (_handleJump and following this line) -> unable to jump
 func _handleJump():
@@ -45,7 +49,6 @@ func _fixed_process(delta):
 	prevIsColliding = isColliding
 	# Storing the first request works fine though, but asking twice per frame - simply blocks jump
 	isColliding = is_colliding()
-	isGrounded = groundRay.is_colliding()
 	#print(isGrounded)
 	
 	if PreviousState != CurrentState:
@@ -89,10 +92,8 @@ func _ready():
 	
 	AttackCD.set_one_shot(true)
 	AttackCD.set_autostart(false)
-	AttackCD.set_wait_time(0.5)
+	AttackCD.set_wait_time(0.4)
 	self.add_child(AttackCD)
-	
-	groundRay = get_node("GroundRay")
 	
 	pass
 

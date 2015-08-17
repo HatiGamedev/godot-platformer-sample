@@ -40,6 +40,7 @@ func _on_Player_enter_state( StateName ):
 		self.play("jump_end")
 		pass
 	elif StateName == player.PlayerState.Landing:
+		self.play("landing")
 		if prevJump != "":
 			clear_queue()
 			queue(prevJump)
